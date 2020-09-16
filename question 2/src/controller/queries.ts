@@ -1,7 +1,7 @@
 import { GraphQLList, GraphQLObjectType, GraphQLString } from "graphql"
 import { Icar, IpurchasedCar, Istaff } from "../../typings/express"
 
-import { purchasedCarsType, allCarType, staffType } from "../schema/schema"
+import { purchasedCarsType, allCarType, staffType, alldataType } from "../schema/schema"
 import services from "../service/services"
 
 const RootQuery = new GraphQLObjectType({
@@ -50,7 +50,14 @@ const RootQuery = new GraphQLObjectType({
           resolve(_parent, args) {
               return services.staffByPosition_name(args as Istaff)
           }
-    }
+      },
+      
+      allData: {
+          type: alldataType,
+          resolve(_parent, _args) {
+              return services.getAllData()
+          }
+      }
   },
 });
 

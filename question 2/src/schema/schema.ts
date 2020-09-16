@@ -38,4 +38,15 @@ const staffType = new GraphQLObjectType({
     })
 })
 
-export {purchasedCarsType, allCarType, staffType}
+
+const alldataType = new GraphQLObjectType({
+  name: "alldata",
+  fields: () => ({
+    PurchasedCars: { type: purchasedCarsType },
+    AllCars: { type: allCarType },
+    staffs: { type: staffType },
+  })
+});
+
+
+export { purchasedCarsType, allCarType, staffType, alldataType };

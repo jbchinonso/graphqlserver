@@ -107,6 +107,15 @@ class services {
         return staff
     }
     
+
+
+    static async getAllData() {
+        const purchasedCars = await PurchasedCarModel.find();
+        const allcars = await allcarsModel.find();
+        const staffs = await staffModel.find();
+
+        return { purchasedCars, allcars, staffs };
+    }
     
 }
 
