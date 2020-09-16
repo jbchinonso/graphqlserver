@@ -1,0 +1,23 @@
+{
+  "name": "question-2",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www",
+    "start-dev": "nodemon ./bin/www"
+  },
+  "dependencies": {
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "ejs": "~2.6.1",
+    "express": "~4.16.1",
+    "express-graphql": "^0.11.0",
+    "graphql": "^15.3.0",
+    "http-errors": "~1.6.3",
+    "morgan": "~1.9.1",
+    "nodemon": "^2.0.4"
+  },
+  "devDependencies": {
+    "typescript": "^4.0.2"
+  }
+}
