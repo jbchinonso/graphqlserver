@@ -9,7 +9,7 @@ import {
 } from "graphql";
 import { Iorganization, Iuser } from "../../typings/express";
 import service from "../service/service"
-
+import Auth from "../service/auth"
 
 const organizationField = {
   id: { type: GraphQLID },
@@ -52,15 +52,16 @@ const RootQuery = new GraphQLObjectType({
     organization: {
       type: organizationType,
       args: { id: { type: GraphQLID } },
-      resolve(_parent, args) {
+      async resolve(_parent, args, context) {
+       await Auth.verify(context);
         return service.organization(args.id)
       },
     },
 
     organizations: {
       type: new GraphQLList(organizationType),
-      async resolve(_parent, args) {
-
+      async resolve(_parent, args, context) {
+       await Auth.verify(context);
         return service.organizations();
       },
     },
@@ -73,8 +74,8 @@ const mutation = new GraphQLObjectType({
     addOrganization: {
       type: organizationType,
       args: organizationField,
-      resolve(_parent, args, { auth }) {
-        console.log(auth)
+      async resolve(_parent, args, context) {
+        await Auth.verify(context);
         return service.createOrganization(args as Iorganization);
       },
     },
@@ -82,7 +83,8 @@ const mutation = new GraphQLObjectType({
     removeOrganization: {
       type: organizationType,
       args: { id: { type: GraphQLID } },
-      resolve(_parent, args) {
+      async resolve(_parent, args, context) {
+       await Auth.verify(context);
         return service.deleteOrganization(args.id)
       },
     },
@@ -90,7 +92,8 @@ const mutation = new GraphQLObjectType({
     updateOrganization: {
       type: organizationType,
       args: organizationField,
-      async resolve(_parent, args) {
+      async resolve(_parent, args, context) {
+        await Auth.verify(context);
         return service.updateOrganization(args as Iorganization)
       },
     },
@@ -115,7 +118,6 @@ const mutation = new GraphQLObjectType({
         password: { type: GraphQLString },
       },
       resolve(parent, args, context) {
-                //console.log(context.headers);
         const user = service.login({ ...args } as Iuser);
         return user;
         /**
