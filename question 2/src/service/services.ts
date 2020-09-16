@@ -28,9 +28,12 @@ class services {
   }
 
   static async updatePurchasedCars(update: IpurchasedCar) {
-    const { error, value } = Validator.PurchasedCarUpdateValidator.validate(update);
+    const { error, value } = Validator.PurchasedCarUpdateValidator.validate(
+      update
+    );
     if (error) throw new Error("invalid Data" + error);
-    const updated = PurchasedCarModel.findByIdAndUpdate({ _id: update.id },
+    const updated = await PurchasedCarModel.findByIdAndUpdate(
+      { _id: update.id },
       {
         $set: {
           ...update,
@@ -43,7 +46,8 @@ class services {
   static async updateAllCars(car: Icar) {
     const { error, value } = Validator.AllCarUpdateValidator.validate(car);
     if (error) throw new Error("invalid Data" + error);
-    const updatedcars = allcarsModel.findByIdAndUpdate( { _id: car.id },
+    const updatedcars = await allcarsModel.findByIdAndUpdate(
+      { _id: car.id },
       {
         $set: {
           ...value,
@@ -52,24 +56,56 @@ class services {
     );
     return updatedcars;
   }
-    
-    
-  static async updatestaff(staff:Istaff) {
-    const { error, value } = Validator.StaffUpdateValidator.validate(staff)
-      if (error) throw new Error("invalid Data" + error);
-      const newstaff = staffModel.findByIdAndUpdate({ _id: value.id },
-        {
-          $set: {
-            ...value,
-          },
-        }
-      );
-      return newstaff;
 
-}    
-    
-    
+  static async updatestaff(staff: Istaff) {
+    const { error, value } = Validator.StaffUpdateValidator.validate(staff);
+    if (error) throw new Error("invalid Data" + error);
+    const newstaff = await staffModel.findByIdAndUpdate(
+      { _id: value.id },
+      {
+        $set: {
+          ...value,
+        },
+      }
+    );
+    return newstaff;
+  }
 
+    static async getAllPurchasedCars() {
+       return await PurchasedCarModel.find();    
+  }
+
+  static async getAllCars() {
+    return await allcarsModel.find();
+  }
+
+  static async getAllStaff() {
+    return await staffModel.find();
+  }
+
+  static async purchasedCarByColorOrType(arg: IpurchasedCar) {
+    const car = await PurchasedCarModel.find({
+      $or: [{ type: arg.type }, { color: arg.color }],
+    });
+      
+      return car
+  }
+  static async allCarsByType_condition_price(arg: Icar) {
+    const car = await PurchasedCarModel.find({
+      $or: [{ type: arg.type }, { condition: arg.condition }, {price: arg.price}],
+    });
+    return car;
+  }
+  
+    static async staffByPosition_name(arg: Istaff) {
+        return await staffModel.find({
+            $or: [
+                {position: arg.position},{name: arg.name}
+            ]
+        })
+    }
+    
+    
 }
 
 export default services;
