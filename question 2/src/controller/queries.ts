@@ -38,26 +38,33 @@ const RootQuery = new GraphQLObjectType({
 
     allCarsByType_Condition_Price: {
       type: new GraphQLList(allCarType),
-      args: { type: { type: GraphQLString }, condition: { type: GraphQLString }, price:{type: GraphQLString} },
-        resolve(_parent, args) {
-          return services.allCarsByType_condition_price(args as Icar)
+      args: {
+        type: { type: GraphQLString },
+        condition: { type: GraphQLString },
+        price: { type: GraphQLString },
       },
+      resolve(_parent, args) {
+        return services.allCarsByType_condition_price(args as Icar);
       },
-    
-      staffByName_Position: {
-          type: new GraphQLList(staffType),
-          args: { position: { type: GraphQLString }, name: { type: GraphQLString } },
-          resolve(_parent, args) {
-              return services.staffByPosition_name(args as Istaff)
-          }
+    },
+
+    staffByName_Position: {
+      type: new GraphQLList(staffType),
+      args: {
+        position: { type: GraphQLString },
+        name: { type: GraphQLString },
       },
-      
-      allData: {
-          type: alldataType,
-          resolve(_parent, _args) {
-              return services.getAllData()
-          }
-      }
+      resolve(_parent, args) {
+        return services.staffByPosition_name(args as Istaff);
+      },
+    },
+
+    allData: {
+      type: alldataType,
+      resolve(_parent, _args) {
+        return services.getAllData();
+      },
+    },
   },
 });
 

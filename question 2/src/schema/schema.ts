@@ -42,10 +42,10 @@ const staffType = new GraphQLObjectType({
 const alldataType = new GraphQLObjectType({
   name: "alldata",
   fields: () => ({
-    PurchasedCars: { type: purchasedCarsType },
-    AllCars: { type: allCarType },
-    staffs: { type: staffType },
-  })
+    PurchasedCars: { type: new GraphQLList(purchasedCarsType) },
+    AllCars: { type: new GraphQLList(allCarType) },
+    staffs: { type: new GraphQLList(staffType) },
+  }),
 });
 
 
