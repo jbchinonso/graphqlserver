@@ -45,7 +45,7 @@ const RootQuery = new GraphQLObjectType({
       },
     
       staffByName_Position: {
-          type: staffType,
+          type: new GraphQLList(staffType),
           args: { position: { type: GraphQLString }, name: { type: GraphQLString } },
           resolve(_parent, args) {
               return services.staffByPosition_name(args as Istaff)

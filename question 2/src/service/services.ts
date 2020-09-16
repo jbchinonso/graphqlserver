@@ -91,18 +91,20 @@ class services {
       return car
   }
   static async allCarsByType_condition_price(arg: Icar) {
-    const car = await PurchasedCarModel.find({
+    const car = await allcarsModel.find({
       $or: [{ type: arg.type }, { condition: arg.condition }, {price: arg.price}],
     });
     return car;
   }
   
     static async staffByPosition_name(arg: Istaff) {
-        return await staffModel.find({
+        const staff = await staffModel.find({
             $or: [
                 {position: arg.position},{name: arg.name}
             ]
         })
+
+        return staff
     }
     
     
