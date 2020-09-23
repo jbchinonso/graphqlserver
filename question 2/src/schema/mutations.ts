@@ -5,8 +5,7 @@ import {
   GraphQLString,
   GraphQLInt,
 } from "graphql";
-import allcarsModel from "../model/allcars";
-import PurchasedCarModel from "../model/purchasedcar";
+
 import staffModel from "../model/staffs";
 
 import services from "../service/services"

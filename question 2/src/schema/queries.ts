@@ -1,7 +1,7 @@
 import { GraphQLList, GraphQLObjectType, GraphQLString } from "graphql"
 import { Icar, IpurchasedCar, Istaff } from "../../typings/express"
 
-import { purchasedCarsType, allCarType, staffType, alldataType } from "../schema/schema"
+import { purchasedCarsType, allCarType, staffType, alldataType } from "./schema"
 import services from "../service/services"
 
 const RootQuery = new GraphQLObjectType({

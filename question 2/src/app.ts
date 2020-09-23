@@ -3,8 +3,8 @@ import express, {Request, Response, NextFunction} from 'express';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 import { graphqlHTTP } from "express-graphql"
-import mutation from "./controller/mutations"
-import query from "./controller/queries"
+import mutation from "./schema/mutations"
+import query from "./schema/queries"
 import { GraphQLSchema } from 'graphql';
 
 const schema = new GraphQLSchema({
