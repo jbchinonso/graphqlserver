@@ -1,7 +1,12 @@
-version: 2.1
-orbs:
-  node: circleci/node@3.0.0
-workflows:
-  node-tests:
-    jobs:
-      - node/test
+version: 2
+ jobs: # we now have TWO jobs, so that a workflow can coordinate them!
+   build: # This is our first job.
+     docker: # it uses the docker executor
+       - image: circleci/node:12.18.3 
+       
+     
+     steps:
+        - run: yarn install
+        - run: yarn test
+
+
