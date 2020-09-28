@@ -61,7 +61,9 @@ const RootQuery = new GraphQLObjectType({
     organizations: {
       type: new GraphQLList(organizationType),
       async resolve(_parent, args, context) {
-       await Auth.verify(context);
+      await Auth.verify(context);
+        // console.log("it entered")
+        // console.log(context.req)
         return service.organizations();
       },
     },
@@ -104,10 +106,10 @@ const mutation = new GraphQLObjectType({
         email: { type: GraphQLString },
         password: { type: GraphQLString },
       },
-      resolve(parent, args) {
+      async resolve(parent, args) {
         const user = { email: args.email, password: args.password };
-        const newuser = service.register(user);
-        return newuser;
+        return service.register(user);
+
       },
     },
 

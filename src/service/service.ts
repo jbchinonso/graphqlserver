@@ -25,9 +25,11 @@ class services {
       value.password,
       bcrypt.genSaltSync(8)
     );
+
     value.password = hashpPassword;
-    const newUser = new User(value);
-    return await newUser.save();
+    const newUserModel = new User(value)
+    const newUser = await newUserModel.save()    
+    return {payload: newUser};
   }
 
   static async login(user: Iuser) {
@@ -82,7 +84,8 @@ class services {
           updatedAt: new Date().toISOString(),
           ...value,
         },
-      }
+      },
+      {new: true}
     );
   }
 }

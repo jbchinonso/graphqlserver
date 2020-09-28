@@ -21,7 +21,8 @@ app.use('/graphql', graphqlHTTP({
   schema,
   graphiql: true,
 
-}))
+})
+)
 
 
 // app.use('/', indexRouter);
