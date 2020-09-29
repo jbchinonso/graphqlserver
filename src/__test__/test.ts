@@ -58,7 +58,8 @@ describe("Test the User Registration query", () => {
       .expect("Content-Type", /json/)
         .expect(200)
       .end((err, res) => {
-          if (err) return done(err);
+        if (err) return done(err);
+        console.log(res.text)
           expect(res.text).toBeDefined()
           expect(JSON.parse(res.text)).toHaveProperty('data')
 
@@ -76,7 +77,7 @@ describe("Test the Login query", () => {
       .send({
         query: `mutation {
               login(email:"john2222@gmail.com", password:"12345"){
-                payload{ email },
+                payload{ email }
                 token
                   
                 }}`,
@@ -87,10 +88,8 @@ describe("Test the Login query", () => {
       .end((err, res) => {
           if (err) return done(err);
           expect(res.text).toBeDefined()
-          expect(res.body.data.login.token).toBeDefined()
-        token = JSON.parse(res.text).data.login.token;
-        console.log(res.body.data.login);
-        
+          expect(JSON.parse(res.text).data.login.token).toBeDefined()
+          token = JSON.parse(res.text).data.login.token;
         done();
       });
   });
