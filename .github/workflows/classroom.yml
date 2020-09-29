@@ -12,8 +12,8 @@
            - uses: actions/checkout@v1
 
            - name: action time
-                run: echo '::set-env name=SELECTED::green'
-                run: echo 'The selected color is' $SELECTED_COLOR
+             run: echo '::set-env name=SELECTED::green'
+             run: echo 'The selected color is' $SELECTED_COLOR
              with:
                  secret: ${{ secrets.secret }}
          
