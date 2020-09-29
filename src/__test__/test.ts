@@ -37,10 +37,7 @@ beforeAll(async () => {
           .catch((error)=>console.log("the error",error))
 });
 
-afterAll(async () => {
-  await mongoose.disconnect();
-  await mongoServer.stop();
-});
+
 
 describe("Test the User Registration query", () => {
     test("test that Users can signup", async (done) => {
@@ -274,4 +271,11 @@ describe("Test the removeOrganization query", () => {
         done();
       });
   });
+});
+
+
+
+afterAll(async () => {
+  await mongoose.disconnect();
+  await mongoServer.stop();
 });
