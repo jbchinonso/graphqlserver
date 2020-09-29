@@ -76,7 +76,7 @@ describe("Test the Login query", () => {
       .send({
         query: `mutation {
               login(email:"john2222@gmail.com", password:"12345"){
-                payload{ email }
+                payload{ email },
                 token
                   
                 }}`,
@@ -89,7 +89,7 @@ describe("Test the Login query", () => {
           expect(res.text).toBeDefined()
           expect(res.body.data.login.token).toBeDefined()
         token = JSON.parse(res.text).data.login.token;
-        //console.log(res.body);
+        console.log(res.body.data.login);
         
         done();
       });
