@@ -87,8 +87,10 @@ describe("Test the Login query", () => {
       .end((err, res) => {
           if (err) return done(err);
           expect(res.text).toBeDefined()
-          expect(JSON.parse(res.text).data.login.token).toBeDefined()
-          token = JSON.parse(res.text).data.login.token;
+          expect(res.body.data.login.token).toBeDefined()
+        token = JSON.parse(res.text).data.login.token;
+        //console.log(res.body);
+        
         done();
       });
   });
