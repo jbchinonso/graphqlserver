@@ -59,7 +59,6 @@ describe("Test the User Registration query", () => {
         .expect(200)
       .end((err, res) => {
         if (err) return done(err);
-        console.log(res.text)
           expect(res.text).toBeDefined()
           expect(JSON.parse(res.text)).toHaveProperty('data')
 
@@ -87,8 +86,6 @@ describe("Test the Login query", () => {
       .expect(200)
       .end((err, res) => {
         if (err) return done(err);
-        console.log(res, res.text, res.body);
-        
           expect(res.text).toBeDefined()
           expect(JSON.parse(res.text).data.login.token).toBeDefined()
           token = JSON.parse(res.text).data.login.token;
