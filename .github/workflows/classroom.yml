@@ -6,8 +6,7 @@
       build:
         name: Autograding
         runs-on: ubuntu-latest
-        env:
-          secret: randomsecretfortoken
+       
 
         steps:
           - uses: actions/checkout@v2
