@@ -2,8 +2,8 @@
   "tests": [
     {
       "name": "Graphql",
-      "setup": "npm install",
-      "run": "npm test",
+      "setup": "yarn install",
+      "run": "yarn test",
       "input": "",
       "output": "",
       "comparison": "included",
