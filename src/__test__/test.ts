@@ -1,9 +1,11 @@
 import supertest from "supertest";
 import app from "../app";
+import dotenv from "dotenv"
 import mongoose from "mongoose";
 import { MongoMemoryServer } from "mongodb-memory-server";
 import { Organization, User } from "../model/schecma";
 
+dotenv.config()
 const request = supertest(app);
 
 const mockUser = {
