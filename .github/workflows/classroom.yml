@@ -8,11 +8,11 @@
         runs-on: ubuntu-latest
         
         
-        - steps:
-          
-          run: echo '::set-env name=SELECTED::green'
-          run: echo 'The selected color is' $SELECTED_COLOR
-          with:
-            secret: ${{ secrets.secret }}
+        steps:
+           - uses: actions/checkout@v1
+             run: echo '::set-env name=SELECTED::green'
+             run: echo 'The selected color is' $SELECTED_COLOR
+             with:
+                 secret: ${{ secrets.secret }}
          
            
