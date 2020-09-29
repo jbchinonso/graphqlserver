@@ -14,11 +14,8 @@
   
           name: Get color
           run: echo 'The selected color is' $SELECTED_COLOR
-          
+
           with:
             secret: ${{ secrets.secret }}
-          env:
-            secret: ${{ secrets.secret }}
-          - uses: actions/checkout@v2
-          - uses: education/autograding@v1 
+         
            
