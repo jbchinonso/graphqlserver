@@ -13,4 +13,4 @@
 
 
             env:
-              secret: "randomsecretfortoken"
+              secret: randomsecretfortoken
