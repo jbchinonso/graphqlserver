@@ -13,6 +13,8 @@
           - name: action time
             run: echo '::set-env name=secret::randomsecretfortoken'
           - name: action echo
+            env:
+              secret: randomsecretfortoken
             run: echo 'The selected color is' $secret
           - uses: actions/checkout@v2
           - uses: education/autograding@v1

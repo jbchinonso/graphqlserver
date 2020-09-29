@@ -32,6 +32,7 @@ let token: string;
 // }));
 
 beforeAll(async () => {
+  console.log(process.env.OP)
   mongoServer = new MongoMemoryServer();
   const mongoUri = await mongoServer.getUri();
   console.log('secret :>> ', process.env.secret);
