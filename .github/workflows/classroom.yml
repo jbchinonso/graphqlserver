@@ -8,14 +8,10 @@
         runs-on: ubuntu-latest
         
         
-        name: set env
-        run: echo '::set-env name=SELECTED::green'
-
-        name: Get color
-        run: echo 'The selected color is' $SELECTED_COLOR
-        
         steps:
-
+          
+          run: echo '::set-env name=SELECTED::green'
+          run: echo 'The selected color is' $SELECTED_COLOR
           with:
             secret: ${{ secrets.secret }}
          
