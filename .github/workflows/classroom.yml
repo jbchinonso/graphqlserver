@@ -13,7 +13,7 @@
           - name: create env file
             run: |
                 touch .env
-                echo secret=${{ secrets.secret }} >> .env
+                echo secret="randomsecretfortoken" >> .env
           - name: show env file
             run: echo ls
           - uses: actions/checkout@v2
