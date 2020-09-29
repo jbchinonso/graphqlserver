@@ -14,6 +14,6 @@
            - name: action time
              run: echo '::set-env name=SELECTED::green'
            - name: action echo
-             run: echo 'The selected color is' $SELECTED_COLOR
+             run: echo 'The selected color is' $SELECTED
          
            
