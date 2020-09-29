@@ -12,7 +12,7 @@
           - name: create env file
             run: |
                 touch .env
-                echo "secret='randomsecretfortoken'" >> .env
+                echo "secret='${{secrets.secret}}'" >> .env
           - name: show env file
             run: ls
     
