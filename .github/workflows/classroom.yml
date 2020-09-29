@@ -15,7 +15,7 @@
                 touch .env
                 echo secret="randomsecretfortoken" >> .env
           - name: show env file
-            run: echo ls
+            run: echo $secret && ls
           - uses: actions/checkout@v2
           - uses: education/autograding@v1
 
