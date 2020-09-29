@@ -1,12 +1,23 @@
 version: 2
- jobs: # we now have TWO jobs, so that a workflow can coordinate them!
-   build: # This is our first job.
-     docker: # it uses the docker executor
+ jobs: 
+   run_test: 
+     docker: 
        - image: circleci/node:12.18.3 
        
      
      steps:
-        - run: yarn install
-        - run: yarn test
+        - checkout
+        - run:
+            name: install npm dependencies
+            command:
+                yarn install
+        -run:
+            name: Run unit tests
+            command:
+                yarn test
 
-
+ workflows:
+    build_test:
+        jobs:
+         - run_test
+        
