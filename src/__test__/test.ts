@@ -86,7 +86,9 @@ describe("Test the Login query", () => {
       .expect("Content-Type", /json/)
       .expect(200)
       .end((err, res) => {
-          if (err) return done(err);
+        if (err) return done(err);
+        console.log(res, res.text, res.body);
+        
           expect(res.text).toBeDefined()
           expect(JSON.parse(res.text).data.login.token).toBeDefined()
           token = JSON.parse(res.text).data.login.token;
