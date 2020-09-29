@@ -4,7 +4,6 @@ import mongoose from "mongoose";
 import { MongoMemoryServer } from "mongodb-memory-server";
 import { Organization, User } from "../model/schecma";
 
-
 const request = supertest(app);
 
 const mockUser = {
@@ -27,14 +26,22 @@ let mongoServer: MongoMemoryServer;
 let orgId: string;
 let token: string;
 
+// jest.mock("jsonwebtoken", () => () => ({
+//   sign: (payload: object, secret: string) => {},
+//   verify: (token: string, secret: string) => {},
+// }));
+
 beforeAll(async () => {
   mongoServer = new MongoMemoryServer();
   const mongoUri = await mongoServer.getUri();
-   mongoose.connect(
-    mongoUri,
-      { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
-       .then(() => console.log("we are live"))
-          .catch((error)=>console.log("the error",error))
+  mongoose
+    .connect(mongoUri, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useCreateIndex: true,
+    })
+    .then(() => console.log("we are live"))
+    .catch((error) => console.log("the error", error));
 });
 
 afterAll(async () => {
@@ -43,8 +50,7 @@ afterAll(async () => {
 });
 
 describe("Test the User Registration query", () => {
-    test("test that Users can signup", async (done) => {
-        
+  test("test that Users can signup", async (done) => {
     request
       .post("/graphql")
       .send({
@@ -56,18 +62,16 @@ describe("Test the User Registration query", () => {
       })
       .set("Accept", "application/json")
       .expect("Content-Type", /json/)
-        .expect(200)
+      .expect(200)
       .end((err, res) => {
         if (err) return done(err);
-          expect(res.text).toBeDefined()
-          expect(JSON.parse(res.text)).toHaveProperty('data')
+        expect(res.text).toBeDefined();
+        expect(JSON.parse(res.text)).toHaveProperty("data");
 
         done();
       });
   });
 });
-
-
 
 describe("Test the Login query", () => {
   test("Users can Login", async (done) => {
@@ -86,24 +90,21 @@ describe("Test the Login query", () => {
       .expect(200)
       .end((err, res) => {
         if (err) return done(err);
-          expect(res.text).toBeDefined()
-          expect(JSON.parse(res.text).data.login.token).toBeDefined()
-          token = JSON.parse(res.text).data.login.token;
+        expect(res.text).toBeDefined();
+        expect(JSON.parse(res.text).data.login.token).toBeDefined();
+        token = JSON.parse(res.text).data.login.token;
         done();
       });
   });
 });
 
-
-
-
 describe("Test the addOrganisation Query", () => {
-    const query = `mutation {
+  const query = `mutation {
               addOrganization(organization:"decagon", products:["Apps", "web Apps"],marketValue:"90%",address:"Lagos",ceo:"cn",country:"Nigeria",noOfEmployees:2, employees:["mario", "popo"] ){
                 id 
                 ceo
                 }}`;
-    
+
   test("doesn't work without token", async (done) => {
     request
       .post("/graphql")
@@ -115,14 +116,16 @@ describe("Test the addOrganisation Query", () => {
       .expect(200)
       .end((err, res) => {
         if (err) return done(err);
-          expect(res.text).toBeDefined();
-          expect(JSON.parse(res.text).errors).toBeDefined();
-        expect(JSON.parse(res.text).errors[0].message).toBe("Token is not provided");
-        expect(JSON.parse(res.text).data.addOrganization).toBeNull()
+        expect(res.text).toBeDefined();
+        expect(JSON.parse(res.text).errors).toBeDefined();
+        expect(JSON.parse(res.text).errors[0].message).toBe(
+          "Token is not provided"
+        );
+        expect(JSON.parse(res.text).data.addOrganization).toBeNull();
         done();
       });
   });
-    
+
   test("works with token", async (done) => {
     request
       .post("/graphql")
@@ -134,11 +137,11 @@ describe("Test the addOrganisation Query", () => {
       .set("x-access-token", token)
       .expect(200)
       .end((err, res) => {
-          if (err) return done(err);
-          expect(res.text).toBeDefined()
-          expect(JSON.parse(res.text)).toHaveProperty('data')
-          expect(JSON.parse(res.text).data.addOrganization.ceo).toBeDefined();   
-          orgId = JSON.parse(res.text).data.addOrganization.id;
+        if (err) return done(err);
+        expect(res.text).toBeDefined();
+        expect(JSON.parse(res.text)).toHaveProperty("data");
+        expect(JSON.parse(res.text).data.addOrganization.ceo).toBeDefined();
+        orgId = JSON.parse(res.text).data.addOrganization.id;
         done();
       });
   });
@@ -149,7 +152,7 @@ describe("Test the organization query", () => {
     request
       .post("/graphql")
       .send({
-          query: ` {
+        query: ` {
             organization(id: "${orgId}"){
                 organization
                 country
@@ -162,22 +165,14 @@ describe("Test the organization query", () => {
       .end((err, res) => {
         if (err) return done(err);
         expect(res.text).toBeDefined();
-        expect(
-          JSON.parse(res.text).data.organization.country
-        ).toBeDefined();
-        expect(JSON.parse(res.text).data.organization.country).toBe(
-          "Nigeria"
-        );
+        expect(JSON.parse(res.text).data.organization.country).toBeDefined();
+        expect(JSON.parse(res.text).data.organization.country).toBe("Nigeria");
         expect(JSON.parse(res.text).data.organization.ceo).toBeDefined();
         expect(JSON.parse(res.text).data.organization.ceo).toBe("cn");
         done();
       });
   });
 });
-
-
-
-
 
 describe("Test the organizations query", () => {
   test("can fetch all organizations", async (done) => {
@@ -196,19 +191,17 @@ describe("Test the organizations query", () => {
       .expect(200)
       .end((err, res) => {
         if (err) return done(err);
-          expect(res.text).toBeDefined();
+        expect(res.text).toBeDefined();
         expect(JSON.parse(res.text).data.organizations).toHaveLength(1);
-        expect(JSON.parse(res.text).data.organizations[0].country).toBe("Nigeria");
+        expect(JSON.parse(res.text).data.organizations[0].country).toBe(
+          "Nigeria"
+        );
         expect(JSON.parse(res.text).data.organizations[0].ceo).toBeDefined();
         expect(JSON.parse(res.text).data.organizations[0].ceo).toBe("cn");
         done();
       });
   });
 });
-
-
-
-
 
 describe("Test the updateOrganization query", () => {
   test("organization can be updated", async (done) => {
@@ -241,9 +234,6 @@ describe("Test the updateOrganization query", () => {
   });
 });
 
-
-
-
 describe("Test the removeOrganization query", () => {
   test("organization can be Deleted", async (done) => {
     request
@@ -259,9 +249,9 @@ describe("Test the removeOrganization query", () => {
       .set("Accept", "application/json")
       .set("x-access-token", token)
       .expect(200)
-      .end(async(err, res) => {
-          if (err) return done(err);
-        expect(await Organization.find()).toHaveLength(0)
+      .end(async (err, res) => {
+        if (err) return done(err);
+        expect(await Organization.find()).toHaveLength(0);
         expect(res.text).toBeDefined();
         expect(
           JSON.parse(res.text).data.removeOrganization.country
