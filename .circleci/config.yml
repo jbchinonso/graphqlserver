@@ -11,7 +11,7 @@ jobs:
             name: install npm dependencies
             command: 
                 yarn install
-        -run: 
+        - run: 
             name: Run unit tests
             command:
                 yarn test
