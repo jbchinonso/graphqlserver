@@ -3,6 +3,9 @@
     {
       "name": "Graphql",
       "setup": "npm install",
+      "env":{
+        "secret":"${{ secrets.secret }}"
+      },
       "run": "npm test",
       "input": "",
       "output": "",

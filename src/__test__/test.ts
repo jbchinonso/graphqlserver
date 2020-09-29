@@ -34,6 +34,7 @@ let token: string;
 beforeAll(async () => {
   mongoServer = new MongoMemoryServer();
   const mongoUri = await mongoServer.getUri();
+  console.log('secret :>> ', process.env.secret);
   mongoose
     .connect(mongoUri, {
       useNewUrlParser: true,

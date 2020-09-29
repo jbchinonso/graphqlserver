@@ -6,13 +6,13 @@
       build:
         name: Autograding
         runs-on: ubuntu-latest
-        env:
-          secret: ${{ secrets.secret }}
-
+        
         steps:
-          - uses: actions/checkout@v2
-          - uses: education/autograding@v1 ${{ secrets.secret }}
-            with:
-              secret: ${{ env.secret }}
-
+          with:
+            secret: "randomsecretfortoken"
+          run:
+        name: Printenv
+        run: |
+          echo "MY_ENV_VAR=${MY_ENV_VAR}"
+          printenv
            
