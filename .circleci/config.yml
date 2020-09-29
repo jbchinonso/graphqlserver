@@ -3,21 +3,14 @@ jobs:
    run_test: 
      docker: 
        - image: circleci/node:12.18.3 
-       
      
      steps: 
         - checkout
-        - run: 
-            name: install npm dependencies
-            command: 
-                yarn install
-        - run: 
-            name: Run unit tests
-            command:
-                yarn test
+        - run: yarn install
+        - run: yarn test
 
 workflows: 
-    run_test: 
+    build_test: 
         jobs: 
          - run_test
         
