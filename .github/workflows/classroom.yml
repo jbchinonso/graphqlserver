@@ -7,7 +7,7 @@
         name: Autograding
         runs-on: ubuntu-latest
         env:
-          secret: randomsecretfortoken
+          secret: ${{ secrets.secret }}
 
         steps:
           - uses: actions/checkout@v2
