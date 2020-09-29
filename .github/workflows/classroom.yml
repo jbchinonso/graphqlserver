@@ -10,9 +10,5 @@
         steps:
           with:
             secret: "randomsecretfortoken"
-          run:
-        name: Printenv
-        run: |
-          echo "MY_ENV_VAR=${MY_ENV_VAR}"
-          printenv
+          run: "echo "MY_ENV_VAR=${MY_ENV_VAR}"
            
