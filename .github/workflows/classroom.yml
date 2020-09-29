@@ -8,7 +8,7 @@
         runs-on: ubuntu-latest
         
         
-        steps:
+        - steps:
           
           run: echo '::set-env name=SELECTED::green'
           run: echo 'The selected color is' $SELECTED_COLOR
