@@ -15,7 +15,5 @@
              run: echo '::set-env name=SELECTED::green'
            - name: action echo
              run: echo 'The selected color is' $SELECTED_COLOR
-             with:
-                 secret: ${{ secrets.secret }}
          
            
