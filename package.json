@@ -3,8 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "tsc && node ./bin/www",
+    "start": "node ./bin/www",
     "start-dev": "nodemon ./bin/www",
+    "build": "tsc",
     "test": "jest --detectOpenHandles --forceExit --coverage --runInBand"
   },
   "dependencies": {

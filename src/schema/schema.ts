@@ -61,7 +61,7 @@ const RootQuery = new GraphQLObjectType({
     organizations: {
       type: new GraphQLList(organizationType),
       async resolve(_parent, args, context) {
-      //await Auth.verify(context);
+      await Auth.verify(context);
         // console.log("it entered")
         // console.log(context.req)
         return service.organizations();
